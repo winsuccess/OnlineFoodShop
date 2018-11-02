@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="nav2">
-            <img id="itemimg" src="<%=r.getPic()%>" alt="halmouri-salad">
+            <img id="itemimg" src="<imgsrc/resimg/%=r.getPic()%>" alt="">
             <div id="detail">
                 <p id="direct">Trang chủ >> Hà Nội</p>
                 <p id="type"><%=r.getType()%></p>

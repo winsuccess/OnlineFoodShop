@@ -74,6 +74,13 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        ");
 
             RestaurantDAO rdao = new RestaurantDAO();
+            AccountDAO accDAO = new AccountDAO();
+            Account acc = new Account();
+            if (request.getParameter("uname") != null) {
+                String name = "";
+                name = request.getParameter("uname");
+                acc = accDAO.getAccount(name);
+            }
         
       out.write("\n");
       out.write("\n");
@@ -82,6 +89,9 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div id=\"login\">\n");
       out.write("                <button class=\"log\" onclick=\"openForm('loginform')\">Đăng nhập</button>\n");
       out.write("                <button class=\"log\" onclick=\"openForm('signupform')\">Đăng ký</button>\n");
+      out.write("            </div>\n");
+      out.write("            <div id=\"logged\">\n");
+      out.write("                <p> Xin chào! </p>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("\n");
@@ -338,6 +348,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 } else if ((log = request.getParameter("log")) != null) {
       out.write("\n");
       out.write("            document.getElementById(\"login\").style.display = \"none\";\n");
+      out.write("            document.getElementById(\"logged\").style.display = \"block\";\n");
       out.write("            ");
 }
       out.write("\n");

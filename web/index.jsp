@@ -93,7 +93,7 @@
                 %>
                 <a href="item.jsp?id=<%=r.getId()%>">
                     <div class="item">
-                        <img id="itemimg" src="<%=r.getPic()%>" alt="">
+                        <img id="itemimg" src="imgsrc/resimg/<%=r.getPic()%>" alt="">
                         <div id="itemdetail">
                             <p id="itemname"><%=r.getName()%></p>
                             <p id="itemlocation"><%=r.getAddress()%></p>
