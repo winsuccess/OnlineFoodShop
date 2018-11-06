@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package model;
 
+import controller.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,6 +62,7 @@ public class RestaurantDAO {
     }
     
     public static void main(String[] args) throws SQLException{
-        RestaurantDAO dao = new RestaurantDAO();
+            RestaurantDAO dao = new RestaurantDAO();
+            System.err.println(dao.getRestaurant(10000).getName());
     }
 }

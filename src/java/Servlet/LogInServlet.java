@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package Servlet;
 
+import model.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -45,8 +46,8 @@ public class LogInServlet extends HttpServlet {
 
             if (acc.isValid()) {
                 HttpSession session = request.getSession(true);
-                session.setAttribute("currentSessionUser", acc);
-                response.sendRedirect("index.jsp?log=1");
+                session.setAttribute("user", acc);
+                response.sendRedirect(url+"?log=1");
             } else {
                response.sendRedirect(url+"invalid=1");
             }

@@ -84,7 +84,7 @@ button {
     font-family: "Roboto";
 }
 
-button[type="search"] {
+#searchbutton {
     background-color: #00c853;
     height: 45px;
     width: 250px;
@@ -107,13 +107,11 @@ button[type="search"] {
 {
     display: none;
     float: right;
-    margin-right: 100px;
+    margin-right: 50px;
     vertical-align: middle;
-    line-height: 5px;
-    color: rgba(255, 51, 0, 0.884);
+    line-height: 50px;
     font-size: 25px;
     font-weight: bold;
-
 }
 .transbutton {
     width: 90%;

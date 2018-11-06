@@ -36,17 +36,14 @@ body {
   margin-right: 15px;
 }
 
-#logged
-{
-    display: none;
-    float: right;
-    margin-right: 100px;
-    vertical-align: middle;
-    line-height: 5px;
-    color: rgba(255, 51, 0, 0.884);
-    font-size: 25px;
-    font-weight: bold;
-
+#logged {
+  display: none;
+  float: right;
+  margin-right: 50px;
+  vertical-align: middle;
+  line-height: 50px;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 #itemimg {
@@ -66,8 +63,8 @@ body {
 }
 
 #detail {
-    width: 60%;
-    height: 300px;
+  width: 60%;
+  height: 300px;
   float: left;
   text-align: left;
   margin-left: 50px;
@@ -110,26 +107,24 @@ p {
   color: rgba(124, 131, 131, 0.75);
 }
 
-.by
-{
-    margin-top: 15px;
-    padding: 5px;
-    width: 100%;
-    text-align: left;
-    border-top: 1px solid rgba(145, 155, 155, 0.384);
+.by {
+  margin-top: 15px;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  border-top: 1px solid rgba(145, 155, 155, 0.384);
 }
 
-table.by th{
-    border-right: 1px solid rgba(145, 155, 155, 0.384);
-    color: rgb(84, 90, 90);
-    font-weight: 200;
+table.by th {
+  border-right: 1px solid rgba(145, 155, 155, 0.384);
+  color: rgb(84, 90, 90);
+  font-weight: 200;
 }
 
-table.by td{
-    color: rgb(27, 29, 29);
-    border-right: 1px solid rgba(145, 155, 155, 0.384);
+table.by td {
+  color: rgb(27, 29, 29);
+  border-right: 1px solid rgba(145, 155, 155, 0.384);
 }
-
 
 .footer {
   float: left;
@@ -171,45 +166,253 @@ table.list td {
   color: rgba(237, 238, 238, 0.836);
 }
 
-#buy
-{
-    background-color: #d8072a;
-    height: 50px;
-    width: 200px;
-    border: none;
-    color: azure;
-    font-size: 17px;
-    border-radius: 4px;
-    margin-left: 25%;
-    margin-right: auto;
-    margin-top: 30px;
+#buy {
+  margin-top: 10px;
+  background-color: #d8072a;
+  height: 50px;
+  width: 200px;
+  border: none;
+  color: azure;
+  font-size: 17px;
+  border-radius: 4px;
 }
 
-.nav3
-{
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    height: 600px;
+.nav3 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 600px;
 }
 
-#introduction
-{
-    font-size: 25px;
-    font-weight: bold;
-    font-family: 'Source Sans Pro';
+#thucdon {
+  font-size: 20px;
+  font-family: "Source Sans Pro";
+  font-weight: bold;
+  color: #d8072a;
+  margin: 15px;
+}
+.nav31 {
+  width: 15%;
+  height: 300px;
+  background-color: whitesmoke;
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-left: 15px;
+}
+.nav32 {
+  width: 45%;
+  height: 600px;
+  background-color: whitesmoke;
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-left: 15px;
+}
+.nav33 {
+  width: 25%;
+  min-height: 120px;
+  background-color: whitesmoke;
+  float: left;
+  padding: 15px;
+  border-radius: 5px;
 }
 
-#rstimg
-{
-    width: 50%;
-    height: 400px;
+.nav33 > button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-#introdetail
-{
-    font-family: 'Source Sans Pro';
+#itemtype {
+  margin-bottom: 5px;
+  padding: 4px;
+  font-size: 15px;
+  color: #888;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+}
+#itemtype2 {
+  margin-bottom: 5px;
+  padding: 4px;
+  font-size: 15px;
+  color: #888;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
 }
 
+#itemtype:focus {
+  outline: 0;
+  color: white;
+  background-color: #888;
+  cursor: pointer;
+  overflow: hidden;
+  border: none;
+}
+
+#itemtype:active {
+  outline: 0;
+  color: white;
+  background-color: #888;
+  cursor: pointer;
+  overflow: hidden;
+  border: none;
+}
+
+#food {
+  width: 100%;
+  height: 80px;
+  padding: 5px;
+  display: table;
+  overflow: hidden;
+}
+#fimg {
+  width: 12%;
+  float: left;
+}
+
+#fdetail {
+  display: table;
+  width: 75%;
+  float: left;
+  padding-left: 15px;
+  font-family: "Source Sans Pro";
+}
+
+#fname {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#forder {
+  font-size: 14px;
+  color: #888;
+}
+
+#forder > span {
+  font-weight: bold;
+  color: black;
+}
+
+#fprice {
+  position: relative;
+  display: table-cell;
+  color: rgb(2, 79, 151);
+  font-size: 20px;
+  font-weight: bold;
+  right: 35px;
+  top: 10px;
+
+  width: 10%;
+}
+
+#addfood {
+  margin-top: 10px;
+  height: 25px;
+  width: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #d8072a;
+  color: white;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  float: left;
+  position: relative;
+}
+
+#addfood:focus {
+  outline: 0;
+  cursor: pointer;
+  overflow: hidden;
+  border: none;
+}
+
+#addfood:hover {
+  background-color: #af021f;
+}
+
+#itemadded {
+  display: none;
+  vertical-align: center;
+}
+
+#add {
+  color: white;
+  margin: 3px;
+  background-color: #00c853;
+  outline: 0;
+  border: 0;
+  font-weight: bold;
+}
+
+#subtract {
+  color: white;
+  margin: 3px;
+  background-color: #66706a;
+  outline: 0;
+  border: 0;
+  font-weight: bold;
+}
+
+#fcount {
+  color: #d8072a;
+}
+
+#fname2 {
+  font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#fprice2 {
+  color: #404140d5;
+  text-align: right;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(75, 74, 74, 0.61);
+}
+#billrow {
+  width: 100%;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+}
+#billtext1 {
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+#billtext2 {
+  float: right;
+  padding: 0;
+  margin: 0;
+}
+
+#introduction {
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Source Sans Pro";
+}
+
+#rstimg {
+  width: 50%;
+  height: 400px;
+}
+#introdetail {
+  font-family: "Source Sans Pro";
+}
 
 #f1 {
   height: 80px;
@@ -288,7 +491,7 @@ table.list td {
   margin-bottom: 20px;
 }
 
-.detail{
+.detail {
   display: block;
   text-align: left;
   margin-left: 20px;
@@ -320,8 +523,8 @@ select:focus {
 }
 
 .save {
-    width: 100%;
-    text-align: left;
+  width: 100%;
+  text-align: left;
   display: block;
   position: relative;
   float: left;
@@ -387,12 +590,12 @@ select:focus {
   background-color: #eee;
 }
 
-#invalid{
-    display: none;
-    line-height: 15px;
-    font-size: 13px;
-    text-align: center;
-    color: red;
+#invalid {
+  display: none;
+  line-height: 15px;
+  font-size: 13px;
+  text-align: center;
+  color: red;
 }
 
 .btnDang {
@@ -406,18 +609,16 @@ select:focus {
   border-radius: 5px;
 }
 
-label[for=dk]
-{
-    pointer-events:none;
-    font-size: 15px;
+label[for="dk"] {
+  pointer-events: none;
+  font-size: 15px;
 }
-#dk
-{
-    pointer-events: all;
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    color: #2196f3;
+#dk {
+  pointer-events: all;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  color: #2196f3;
 }

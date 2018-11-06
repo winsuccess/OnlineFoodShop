@@ -4,10 +4,13 @@
     Author     : ADMIN
 --%>
 
+<%@page import="model.Cart"%>
+<%@page import="model.FoodDAO"%>
+<%@page import="model.Food"%>
 <%@page import="model.Account"%>
-<%@page import="controller.AccountDAO"%>
+<%@page import="model.AccountDAO"%>
 <%@page import="model.Restaurant"%>
-<%@page import="controller.RestaurantDAO"%>
+<%@page import="model.RestaurantDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,6 +34,7 @@
 
         <%
             RestaurantDAO resDAO = new RestaurantDAO();
+            FoodDAO fDAO = new FoodDAO();
             Restaurant r = new Restaurant();
             String id = "";
             if (request.getParameter("id") != null) {
@@ -41,7 +45,13 @@
             Account acc = new Account();
             String name = "";
             name = request.getParameter("uname");
-            acc =accDAO.getAccount(name);
+            acc = accDAO.getAccount(name);
+
+            Cart cart = (Cart) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new Cart();
+                session.setAttribute("cart", cart);
+            }
         %>
 
         <div class="nav1">
@@ -50,12 +60,12 @@
                 <button class="log" onclick="openForm('loginform')">Đăng nhập</button>
                 <button class="log" onclick="openForm('signupform')">Đăng ký</button>
             </div>
-             <div id="logged">
-                <p> Xin chào! </p>
+            <div id="logged">
+                <a href="LogOutServlet"><button class="log">Đăng xuất</button> </a>
             </div>
         </div>
         <div class="nav2">
-            <img id="itemimg" src="<imgsrc/resimg/%=r.getPic()%>" alt="">
+            <img id="itemimg" src="imgsrc/resimg/<%=r.getPic()%>" alt="">
             <div id="detail">
                 <p id="direct">Trang chủ >> Hà Nội</p>
                 <p id="type"><%=r.getType()%></p>
@@ -77,23 +87,49 @@
                         <td><%=r.getPrepareTime()%> phút</td>
                     </tr>
                 </table>
-
-                <button id="buy" type="button" onclick="muaHang()">Mua Hàng</button>
             </div>
         </div>
 
         <div class="nav3">
-            <p id="introduction">Giới thiệu sản phẩm</p>
+            <p id="thucdon">THỰC ĐƠN</p>
+            <div class="nav31">
+                <button id="itemtype"> FRUIT TEA</button> <br>
+            </div>
+            <div class="nav32">
+                <button id="itemtype2"> FRUIT TEA</button>
+                <div id="food">
+                    <%
+                        for (Food f : fDAO.getListFoodByRestaurant(Integer.parseInt(id))) {
+                    %>
+                    <img id="fimg" src="imgsrc/foodimg/<%=f.getPic()%>" alt="">
+                    <div id="fdetail">
+                        <p id="fname"><%=f.getName()%></p>
+                        <p id="forder">Đã được đặt <span><%=f.getTimes()%></span> lần</p>
+                        <span id="fprice"> <%=f.getPrice()%>đ</span>
+                    </div>
+                    <button id="addfood" type="button" onclick="themHang()"> +</button>
+                    <%}%>
+                </div>
 
-            <p id="introdetail">Royaltea là thương hiệu trà sữa vô cùng nổi tiếng và được yêu thích tại Hồng Kông trong
-                uốt nhiều năm qua. Vào đầu năm 2017, Royaltea chính thức bước vào thị trường Việt Nam
-                giữa cơn bão trà sữa với rất nhiều đối thủ. Cùng với sự phát triển như vũ bão của Royaltea
-                trong vài tháng qua đã chứng minh được chất lượng và sự khác biệt mang tên Royaltea. Không
-                chỉ có kem cheese ngon đặc sắc làm nức lòng các tín đồ trà sữa, mà trà hoa quả với vị trà
-                thanh mát từ lá trà được chắt lọc ở những đồi chè nổi tiếng kết hợp với trái cây tươi thật
-                sự chinh phục trái tim thực khách.
-            </p>
-            <img id="rstimg" src="https://media.foody.vn/images/22708912_1298777410228694_7357176543077990400_n(2).jpg">
+            </div>
+            <div class="nav33">
+                <div id="itemadded">
+                    <div><button id="add" type="button" onclick="congHang()"> +</button> 
+                        <span id="fcount">1</span>
+                        <button id="subtract"type="button" onclick="truHang()"> -</button>
+                        <span id="fname2"></span> </div>
+                    <p id="fprice2"></p>
+                </div>
+                <div id="billrow">
+                    <p id="billtext1"> Tổng: </p>
+                    <p id="billtext2">0đ</p>
+                </div>
+                <div id="billrow">
+                    <p id="billtext1"> Phí vận chuyển: </p>
+                    <p id="billtext2"><%=r.getDelivery()%>  </p>
+                </div>
+                <button id="buy" type="button" onclick="muaHang()">Mua Hàng</button>
+            </div>
         </div>
 
         <div class="footer">
@@ -264,14 +300,17 @@
                 }
             };
             <%
-                        String inv;
-                        String log;
-                        if ((inv = request.getParameter("invalid")) != null) {%>
+                String inv;
+                if ((inv = request.getParameter("invalid")) != null) {%>
             showInvalid("block");
             document.getElementById("loginform").style.display = "block";
-            <%} else if ((log = request.getParameter("log")) != null) {%>
+            <%}
+                    if (session != null) {
+                        if (session.getAttribute("user") != null) {%>
             document.getElementById("login").style.display = "none";
-            <%}%>
+            document.getElementById("logged").style.display = "block";
+            <%}
+}%>
         </script>
     </body>
 

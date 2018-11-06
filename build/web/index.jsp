@@ -4,10 +4,12 @@
     Author     : ThangDo
 --%>
 
-<%@page import="controller.AccountDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="controller.RestaurantManager"%>
+<%@page import="model.AccountDAO"%>
 <%@page import="model.Account"%>
 <%@page import="model.Restaurant"%>
-<%@page import="controller.RestaurantDAO"%>
+<%@page import="model.RestaurantDAO"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,6 +32,7 @@
 
         <%
             RestaurantDAO rdao = new RestaurantDAO();
+            RestaurantManager resm = new RestaurantManager();
             AccountDAO accDAO = new AccountDAO();
             Account acc = new Account();
             if (request.getParameter("uname") != null) {
@@ -46,22 +49,23 @@
                 <button class="log" onclick="openForm('signupform')">Đăng ký</button>
             </div>
             <div id="logged">
-                <p> Xin chào! </p>
+                <a href="LogOutServlet"><button class="log">Đăng xuất</button> </a>
             </div>
         </div>
 
         <div class="nav2">
-
-            <input type="text" name="search" id="searchbar" placeholder="Nhập đồ ăn" /><button type="search">TÌM KIẾM</button>
+            <form method="post" name="frm" action="SearchServlet">
+                <input type="text" name="searchtext" id="searchbar" value="" placeholder="Nhập đồ ăn" /><button id="searchbutton" type="submit">TÌM KIẾM</button>
+            </form>
         </div>
 
         <div class="main">
             <div class="sidebar">
                 <p> Ẩm thực </p>
-                <button class="transbutton"> Tất cả </button>
-                <button class="transbutton"> Đồ uống </button>
-                <button class="transbutton"> Đồ ăn </button>
-                <button class="transbutton"> Tráng miệng </button>
+                <a href="index.jsp"> <button class="transbutton"> Tất cả </button> </a>
+                <a href="index.jsp?type=Đồ+uống"> <button class="transbutton" > Đồ uống </button></a>
+                <a href="index.jsp?type=Đồ+ăn"> <button class="transbutton"> Đồ ăn </button> </a>
+                <a href="index.jsp?type=Tráng miệng"> <button class="transbutton"> Tráng miệng </button> </a>
                 <!--                <button type="extra" onclick="more()">Hơn nữa <i class="arrow down"></i></button>-->
                 <p> Nhận xét </p>
                 <div class="wbutton">
@@ -89,7 +93,10 @@
 
             <div class="items">
                 <%
-                    for (Restaurant r : rdao.getListRestaurant()) {
+                    String type = "";
+                    String name = "";
+                    if (request.getParameter("type") == null && request.getAttribute("searchlist") == null) {
+                        for (Restaurant r : rdao.getListRestaurant()) {
                 %>
                 <a href="item.jsp?id=<%=r.getId()%>">
                     <div class="item">
@@ -103,6 +110,41 @@
                     </div>
                 </a>
                 <%
+                    }
+                } else if (request.getParameter("type") != null) {
+                    type = request.getParameter("type");
+                    for (Restaurant r : resm.searchByTypeRestaurant(type)) {
+                %>
+                <a  href ="item.jsp?id=<%=r.getId()%>">
+                    <div class="item">
+                        <img id="itemimg" src="imgsrc/resimg/<%=r.getPic()%>" alt="">
+                        <div id="itemdetail">
+                            <p id="itemname"><%=r.getName()%></p>
+                            <p id="itemlocation"><%=r.getAddress()%></p>
+                            <p id="itemprice"><%=r.getPrice()%> VND</p>
+                        </div>
+                        <span id="itemrank"><%=r.getRating()%></span>
+                    </div>
+                </a>
+                <%
+                    }
+                } else if (request.getAttribute("searchlist") != null) {
+                    ArrayList<Restaurant> rlist = (ArrayList<Restaurant>) request.getAttribute("searchlist");
+                    for (Restaurant r : rlist) {
+                %>
+                <a  href ="item.jsp?id=<%=r.getId()%>">
+                    <div class="item">
+                        <img id="itemimg" src="imgsrc/resimg/<%=r.getPic()%>" alt="">
+                        <div id="itemdetail">
+                            <p id="itemname"><%=r.getName()%></p>
+                            <p id="itemlocation"><%=r.getAddress()%></p>
+                            <p id="itemprice"><%=r.getPrice()%> VND</p>
+                        </div>
+                        <span id="itemrank"><%=r.getRating()%></span>
+                    </div>
+                </a>
+                <%
+                        }
                     }
                 %>
             </div>
@@ -277,14 +319,16 @@
             };
             <%
                 String inv;
-                String log;
                 if ((inv = request.getParameter("invalid")) != null) {%>
             showInvalid("block");
             document.getElementById("loginform").style.display = "block";
-            <%} else if ((log = request.getParameter("log")) != null) {%>
+            <%}
+                if (session !=null) {
+                    if (session.getAttribute("user") != null) {%>
             document.getElementById("login").style.display = "none";
             document.getElementById("logged").style.display = "block";
-            <%}%>
+            <%}
+                }%>
         </script>
 
     </body>
