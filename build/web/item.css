@@ -204,7 +204,7 @@ table.list td {
 }
 .nav32 {
   width: 45%;
-  height: 600px;
+  min-height: 350px;
   background-color: whitesmoke;
   float: left;
   margin-left: 20px;
@@ -346,7 +346,7 @@ table.list td {
 }
 
 #itemadded {
-  display: none;
+  /*display: none;*/
   vertical-align: center;
 }
 

@@ -1,9 +1,12 @@
 <%-- 
     Document   : item
     Created on : Oct 30, 2018, 10:32:41 AM
-    Author     : ADMIN
+    Author     : ThangDo
 --%>
 
+<%@page import="controller.CartManager"%>
+<%@page import="java.util.Map"%>
+<%@page import="model.Item"%>
 <%@page import="model.Cart"%>
 <%@page import="model.FoodDAO"%>
 <%@page import="model.Food"%>
@@ -52,6 +55,7 @@
                 cart = new Cart();
                 session.setAttribute("cart", cart);
             }
+            CartManager cm = new CartManager(cart);
         %>
 
         <div class="nav1">
@@ -97,32 +101,34 @@
             </div>
             <div class="nav32">
                 <button id="itemtype2"> FRUIT TEA</button>
+                <%
+                    for (Food f : fDAO.getListFoodByRestaurant(Integer.parseInt(id))) {
+                %>
                 <div id="food">
-                    <%
-                        for (Food f : fDAO.getListFoodByRestaurant(Integer.parseInt(id))) {
-                    %>
                     <img id="fimg" src="imgsrc/foodimg/<%=f.getPic()%>" alt="">
                     <div id="fdetail">
                         <p id="fname"><%=f.getName()%></p>
                         <p id="forder">Đã được đặt <span><%=f.getTimes()%></span> lần</p>
                         <span id="fprice"> <%=f.getPrice()%>đ</span>
                     </div>
-                    <button id="addfood" type="button" onclick="themHang()"> +</button>
-                    <%}%>
-                </div>
+                    <a href="CartServlet?command=add&id=<%=r.getId()%>&fid=<%=f.getId()%>"> <button id="addfood" type="button" onclick="themHang()"> +</button> </a>
+
+                </div>                         <%}%>
 
             </div>
             <div class="nav33">
+                <%for (Map.Entry<Long, Item> list : cart.getCartItems().entrySet()) {%>
                 <div id="itemadded">
-                    <div><button id="add" type="button" onclick="congHang()"> +</button> 
-                        <span id="fcount">1</span>
-                        <button id="subtract"type="button" onclick="truHang()"> -</button>
-                        <span id="fname2"></span> </div>
-                    <p id="fprice2"></p>
+                    <div><a href="CartServlet?command=add&id=<%=r.getId()%>&fid=<%=list.getValue().getFood().getId()%>"><button id="add" type="button" onclick="congHang()">+</button></a>
+                        <span id="fcount"><%=list.getValue().getQuantity()%></span>
+                        <a href="CartServlet?command=sub&id=<%=r.getId()%>&fid=<%=list.getValue().getFood().getId()%>"><button id="subtract"type="button" onclick="truHang()">-</button></a>
+                        <span id="fname2"><%=list.getValue().getFood().getName()%></span> </div>
+                    <p id="fprice2"><%=list.getValue().getFood().getPrice()%></p>
                 </div>
+                <% }%>
                 <div id="billrow">
                     <p id="billtext1"> Tổng: </p>
-                    <p id="billtext2">0đ</p>
+                    <p id="billtext2"><%=cm.total()%></p>
                 </div>
                 <div id="billrow">
                     <p id="billtext1"> Phí vận chuyển: </p>
@@ -305,12 +311,12 @@
             showInvalid("block");
             document.getElementById("loginform").style.display = "block";
             <%}
-                    if (session != null) {
-                        if (session.getAttribute("user") != null) {%>
+                if (session != null) {
+                    if (session.getAttribute("user") != null) {%>
             document.getElementById("login").style.display = "none";
             document.getElementById("logged").style.display = "block";
             <%}
-}%>
+                }%>
         </script>
     </body>
 

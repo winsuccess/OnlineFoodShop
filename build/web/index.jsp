@@ -94,7 +94,6 @@
             <div class="items">
                 <%
                     String type = "";
-                    String name = "";
                     if (request.getParameter("type") == null && request.getAttribute("searchlist") == null) {
                         for (Restaurant r : rdao.getListRestaurant()) {
                 %>

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import model.Item;
 import model.Cart;
@@ -32,23 +33,30 @@ public class CartManager {
         }
     }
 
-    public void removeToCart(Long food) {
-        boolean bln = c.getCartItems().containsKey(food);
-        if (bln) {
-            c.getCartItems().remove(food);
+    public void subToCart(Long key, Item item) {
+        boolean check = c.getCartItems().containsKey(key);
+        if (check) {
+            int quantity_old = item.getQuantity();
+            if (quantity_old <= 1) {
+                c.getCartItems().remove(key);
+            } else {
+                item.setQuantity(quantity_old - 1);
+                c.getCartItems().put(key, item);
+            }
         }
     }
-    
-public int countItem() {
+
+    public int countItem() {
         int count = 0;
         count = c.getCartItems().size();
         return count;
-}
-public double total() {
+    }
+
+    public double total() {
         int count = 0;
         for (Map.Entry<Long, Item> list : c.getCartItems().entrySet()) {
-            count += list.getValue().getFood().getPrice()* list.getValue().getQuantity();
+            count += list.getValue().getFood().getPrice() * list.getValue().getQuantity();
         }
         return count;
-}
+    }
 }

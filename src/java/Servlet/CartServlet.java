@@ -25,34 +25,42 @@ import model.Item;
 public class CartServlet extends HttpServlet {
 
     FoodDAO fDAO = new FoodDAO();
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String resid = request.getParameter("id");
+        String cmd = request.getParameter("command");
+        String id = request.getParameter("fid");
+        Cart cart = (Cart) session.getAttribute("cart");
+        CartManager cc = new CartManager(cart);
+        try {
+            Long fid = Long.parseLong(id);
+            Food f = fDAO.getFood(fid);
+            switch (cmd) {
+                case "add":
+                    if (cart.getCartItems().containsKey(fid)) {
+                        cc.insertToCart(fid, new Item(f, cart.getCartItems().get(fid).getQuantity()));
+                    } else {
+                        cc.insertToCart(fid, new Item(f, 1));
+                    }
+                    break;
+                    case "sub":    
+                    cc.subToCart(fid, new Item(f, cart.getCartItems().get(fid).getQuantity()));
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+           // response.sendRedirect("item.jsp?id=" + resid + "");
+        }
+        session.setAttribute("cart", cart);
+        response.sendRedirect("item.jsp?id=" + resid + "");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String cmd = request.getParameter("command");
-        String id = request.getParameter("id");
-        Cart cart = (Cart) session.getAttribute("cart");
-        CartManager cc = new CartManager(cart);
-        try
-        {
-            Long fid = Long.parseLong(id);
-            Food f = fDAO.getFood(fid);
-            switch(cmd) {
-                case "add":
-                    if(cart.getCartItems().containsKey(fid))
-                        cc.insertToCart(fid, new Item(f,cart.getCartItems().get(id).getQuantity()));
-                    else
-                        cc.insertToCart(fid, new Item(f,1));
-                    
-            }
-        }catch (Exception e){
-            e.printStackTrace(); }
     }
 
 }

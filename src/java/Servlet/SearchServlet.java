@@ -56,8 +56,8 @@ public class SearchServlet extends HttpServlet {
             ArrayList<Restaurant> searchlist = new ArrayList<Restaurant>();
             searchlist = resm.searchByNameRestaurant(searchtext);
             request.setAttribute("searchlist", searchlist);
-             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-             dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class SearchServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public static void main(String[] args) throws SQLException{
+    public static void main(String[] args) throws SQLException {
 
     }
 }

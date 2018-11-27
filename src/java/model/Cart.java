@@ -14,6 +14,15 @@ import java.util.HashMap;
 public class Cart {
 
     private HashMap<Long, Item> cartItems;
+    private float totalPrice;
+
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public Cart() {
         cartItems = new HashMap<>();
