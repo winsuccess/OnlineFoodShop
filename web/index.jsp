@@ -49,7 +49,8 @@
                 <button class="log" onclick="openForm('signupform')">Đăng ký</button>
             </div>
             <div id="logged">
-                <a href="LogOutServlet"><button class="log">Đăng xuất</button> </a>
+                <a href="UpdateServlet"><button class="log2">Thông tin cá nhân</button></a>
+                <a href="LogOutServlet"><button class="log">Đăng xuất</button></a>
             </div>
         </div>
 
