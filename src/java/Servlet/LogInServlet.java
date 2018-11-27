@@ -47,7 +47,7 @@ public class LogInServlet extends HttpServlet {
             if (acc.isValid()) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", acc);
-                response.sendRedirect(url+"?log=1");
+                response.sendRedirect(url+"log=1");
             } else {
                response.sendRedirect(url+"invalid=1");
             }
