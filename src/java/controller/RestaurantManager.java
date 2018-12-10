@@ -13,6 +13,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import model.Restaurant;
+import model.RestaurantDAO;
 
 /**
  *
@@ -75,6 +76,15 @@ public class RestaurantManager {
             reslist.add(res);
         }
         return reslist;
+    }
+    
+    public int countRestaurant() throws SQLException
+    {
+        int tong=0;
+        RestaurantDAO rdao = new RestaurantDAO();
+        for(Restaurant r: rdao.getListRestaurant())
+            tong++;
+        return tong;
     }
 
     public static void main(String[] args) throws SQLException {

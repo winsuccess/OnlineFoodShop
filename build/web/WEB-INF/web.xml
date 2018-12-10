@@ -20,6 +20,10 @@
         <servlet-name>LogOutServlet</servlet-name>
         <servlet-class>Servlet.LogOutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateAccount</servlet-name>
+        <servlet-class>Servlet.UpdateAccount</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
         <url-pattern>/SignUpServlet</url-pattern>
@@ -40,9 +44,13 @@
         <servlet-name>LogOutServlet</servlet-name>
         <url-pattern>/LogOutServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccount</servlet-name>
+        <url-pattern>/UpdateAccount</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            999
         </session-timeout>
     </session-config>
 </web-app>

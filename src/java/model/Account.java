@@ -10,13 +10,25 @@ package model;
  * @author ADMIN
  */
 public class Account {
-    
+
     private String username;
     private String password;
     private String fullname;
     private int phonenum;
     private String address;
     public boolean valid;
+
+    public Account() {
+
+    }
+
+    public Account(String username, String password, String fullname, int phonenum, String address) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.phonenum = phonenum;
+        this.address = address;
+    }
 
     public String getFullname() {
         return fullname;

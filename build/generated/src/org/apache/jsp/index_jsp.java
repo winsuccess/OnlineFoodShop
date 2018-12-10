@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.util.ArrayList;
 import controller.RestaurantManager;
 import model.AccountDAO;
 import model.Account;
@@ -54,6 +55,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("\n");
@@ -63,7 +65,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <meta charset=\"utf-8\">\n");
       out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n");
       out.write("        <!-- External files -->\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\">\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/index.css\">\n");
       out.write("        <link href=\"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">\n");
       out.write("        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n");
       out.write("        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet'>\n");
@@ -79,6 +81,8 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
             RestaurantManager resm = new RestaurantManager();
             AccountDAO accDAO = new AccountDAO();
             Account acc = new Account();
+             if (session.getAttribute("user") != null)
+            acc =(Account) session.getAttribute("user");
             if (request.getParameter("uname") != null) {
                 String name = "";
                 name = request.getParameter("uname");
@@ -94,14 +98,14 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <button class=\"log\" onclick=\"openForm('signupform')\">Đăng ký</button>\n");
       out.write("            </div>\n");
       out.write("            <div id=\"logged\">\n");
-      out.write("                <p> Xin chào! </p>\n");
+      out.write("                <button class=\"log2\" onclick=\"openForm('updateform')\">Thông tin cá nhân</button>\n");
+      out.write("                <a href=\"LogOutServlet\"><button class=\"log\">Đăng xuất</button></a>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("\n");
       out.write("        <div class=\"nav2\">\n");
-      out.write("\n");
       out.write("            <form method=\"post\" name=\"frm\" action=\"SearchServlet\">\n");
-      out.write("                <input type=\"text\" name=\"searchtext\" id=\"searchbar\" placeholder=\"Nhập đồ ăn\" /><button id=\"searchbutton\" type=\"submit\">TÌM KIẾM</button>\n");
+      out.write("                <input type=\"text\" name=\"searchtext\" id=\"searchbar\" value=\"\" placeholder=\"Nhập đồ ăn\" /><button id=\"searchbutton\" type=\"submit\">TÌM KIẾM</button>\n");
       out.write("            </form>\n");
       out.write("        </div>\n");
       out.write("\n");
@@ -141,8 +145,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                ");
 
                     String type = "";
-                    String name = "";
-                    if (request.getParameter("type") == null && request.getParameter("name") == null) {
+                    if (request.getParameter("type") == null && request.getAttribute("searchlist") == null) {
                         for (Restaurant r : rdao.getListRestaurant()) {
                 
       out.write("\n");
@@ -203,9 +206,9 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                ");
 
                     }
-                } else if (request.getParameter("name") != null) {
-                    name = request.getParameter("searchText");
-                    for (Restaurant r : resm.searchByTypeRestaurant(name)) {
+                } else if (request.getAttribute("searchlist") != null) {
+                    ArrayList<Restaurant> rlist = (ArrayList<Restaurant>) request.getAttribute("searchlist");
+                    for (Restaurant r : rlist) {
                 
       out.write("\n");
       out.write("                <a  href =\"item.jsp?id=");
@@ -382,6 +385,25 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            </form>\n");
       out.write("        </div>\n");
       out.write("\n");
+      out.write("        <div class=\"form-popup\" id=\"updateform\">\n");
+      out.write("            <form action=\"UpdateAccount\" method=\"post\" class=\"form-container\">\n");
+      out.write("                <p id=\"logintitle\">Thay đổi thông tin cá nhân</p>\n");
+      out.write("                <label class=\"detail\" for=\"fname\">Họ tên</label>\n");
+      out.write("                <input class=\"inf\" name=\"fname\" required>\n");
+      out.write("                <label class=\"detail\" for=\"phonenum\">Số điện thoại</label>\n");
+      out.write("                <input class=\"inf\" name=\"phonenum\" required>\n");
+      out.write("                <label class=\"detail\" for=\"address\">Địa chỉ</label>\n");
+      out.write("                <input class=\"inf\" name=\"address\" required>\n");
+      out.write("                <label class=\"detail\" for=\"uname\">Tên tài khoản</label>\n");
+      out.write("                <label class=\"inf\" name=\"uname\"> ");
+      out.print(acc.getUsername());
+      out.write(" </label>\n");
+      out.write("                <label class=\"detail\" for=\"psw\">Mật khẩu</label>\n");
+      out.write("                <input type =\"password\" class=\"inf\" name=\"psw\" required>\n");
+      out.write("                <button class=\"btnDang\" type=\"submit\">Cập nhật thông tin</button>\n");
+      out.write("            </form>\n");
+      out.write("        </div>\n");
+      out.write("\n");
       out.write("        <script>\n");
       out.write("            var form;\n");
       out.write("            function showInvalid(show) {\n");
@@ -410,18 +432,20 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            ");
 
                 String inv;
-                String log;
                 if ((inv = request.getParameter("invalid")) != null) {
       out.write("\n");
       out.write("            showInvalid(\"block\");\n");
       out.write("            document.getElementById(\"loginform\").style.display = \"block\";\n");
       out.write("            ");
-} else if ((log = request.getParameter("log")) != null) {
+}
+                if (session != null) {
+                    if (session.getAttribute("user") != null) {
       out.write("\n");
       out.write("            document.getElementById(\"login\").style.display = \"none\";\n");
       out.write("            document.getElementById(\"logged\").style.display = \"block\";\n");
       out.write("            ");
 }
+                }
       out.write("\n");
       out.write("        </script>\n");
       out.write("\n");

@@ -20,7 +20,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- External files -->
-        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet'>
@@ -35,6 +35,8 @@
             RestaurantManager resm = new RestaurantManager();
             AccountDAO accDAO = new AccountDAO();
             Account acc = new Account();
+             if (session.getAttribute("user") != null)
+            acc =(Account) session.getAttribute("user");
             if (request.getParameter("uname") != null) {
                 String name = "";
                 name = request.getParameter("uname");
@@ -49,7 +51,7 @@
                 <button class="log" onclick="openForm('signupform')">Đăng ký</button>
             </div>
             <div id="logged">
-                <a href="UpdateServlet"><button class="log2">Thông tin cá nhân</button></a>
+                <button class="log2" onclick="openForm('updateform')">Thông tin cá nhân</button>
                 <a href="LogOutServlet"><button class="log">Đăng xuất</button></a>
             </div>
         </div>
@@ -292,6 +294,23 @@
             </form>
         </div>
 
+        <div class="form-popup" id="updateform">
+            <form action="UpdateAccount" method="post" class="form-container">
+                <p id="logintitle">Thay đổi thông tin cá nhân</p>
+                <label class="detail" for="fname">Họ tên</label>
+                <input class="inf" name="fname" required>
+                <label class="detail" for="phonenum">Số điện thoại</label>
+                <input class="inf" name="phonenum" required>
+                <label class="detail" for="address">Địa chỉ</label>
+                <input class="inf" name="address" required>
+                <label class="detail" for="uname">Tên tài khoản</label>
+                <input class="inf" name="uname"value="<%=acc.getUsername()%>" readonly> 
+                <label class="detail" for="psw">Mật khẩu</label>
+                <input type ="password" class="inf" name="psw" required>
+                <button class="btnDang" type="submit">Cập nhật thông tin</button>
+            </form>
+        </div>
+
         <script>
             var form;
             function showInvalid(show) {
@@ -309,12 +328,16 @@
 
             var modal1 = document.getElementById('loginform');
             var modal2 = document.getElementById('signupform');
+            var modal3 = document.getElementById('updateform');
             window.onclick = function (event) {
                 if (event.target === modal1) {
                     modal1.style.display = "none";
                 }
                 if (event.target === modal2) {
                     modal2.style.display = "none";
+                }
+                if (event.target === modal3) {
+                    modal3.style.display = "none";
                 }
             };
             <%
@@ -323,7 +346,7 @@
             showInvalid("block");
             document.getElementById("loginform").style.display = "block";
             <%}
-                if (session !=null) {
+                if (session != null) {
                     if (session.getAttribute("user") != null) {%>
             document.getElementById("login").style.display = "none";
             document.getElementById("logged").style.display = "block";

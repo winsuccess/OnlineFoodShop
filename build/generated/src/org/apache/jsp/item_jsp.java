@@ -3,10 +3,16 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import controller.CartManager;
+import java.util.Map;
+import model.Item;
+import model.Cart;
+import model.FoodDAO;
+import model.Food;
 import model.Account;
-import controller.AccountDAO;
+import model.AccountDAO;
 import model.Restaurant;
-import controller.RestaurantDAO;
+import model.RestaurantDAO;
 
 public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -52,6 +58,12 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("\n");
@@ -61,7 +73,7 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <meta charset=\"utf-8\">\n");
       out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n");
       out.write("        <!-- External files -->\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"item.css\">\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/item.css\">\n");
       out.write("        <link href=\"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">\n");
       out.write("        <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.4.2/css/all.css\">\n");
       out.write("        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n");
@@ -75,6 +87,7 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        ");
 
             RestaurantDAO resDAO = new RestaurantDAO();
+            FoodDAO fDAO = new FoodDAO();
             Restaurant r = new Restaurant();
             String id = "";
             if (request.getParameter("id") != null) {
@@ -85,7 +98,14 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
             Account acc = new Account();
             String name = "";
             name = request.getParameter("uname");
-            acc =accDAO.getAccount(name);
+            acc = accDAO.getAccount(name);
+
+            Cart cart = (Cart) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new Cart();
+                session.setAttribute("cart", cart);
+            }
+            CartManager cm = new CartManager(cart);
         
       out.write("\n");
       out.write("\n");
@@ -95,8 +115,8 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <button class=\"log\" onclick=\"openForm('loginform')\">Đăng nhập</button>\n");
       out.write("                <button class=\"log\" onclick=\"openForm('signupform')\">Đăng ký</button>\n");
       out.write("            </div>\n");
-      out.write("             <div id=\"logged\">\n");
-      out.write("                <p> Xin chào! </p>\n");
+      out.write("            <div id=\"logged\">\n");
+      out.write("                <a href=\"LogOutServlet\"><button class=\"log\">Đăng xuất</button> </a>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("        <div class=\"nav2\">\n");
@@ -136,57 +156,90 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write(" phút</td>\n");
       out.write("                    </tr>\n");
       out.write("                </table>\n");
+      out.write("            </div>\n");
+      out.write("        </div>\n");
       out.write("\n");
+      out.write("        <div class=\"nav3\">\n");
+      out.write("            <p id=\"thucdon\">THỰC ĐƠN</p>\n");
+      out.write("            <div class=\"nav31\">\n");
+      out.write("                <button id=\"itemtype\"> FRUIT TEA</button> <br>\n");
+      out.write("            </div>\n");
+      out.write("            <div class=\"nav32\">\n");
+      out.write("                <button id=\"itemtype2\"> FRUIT TEA</button>\n");
+      out.write("                ");
+
+                    for (Food f : fDAO.getListFoodByRestaurant(Integer.parseInt(id))) {
+                
+      out.write("\n");
+      out.write("                <div id=\"food\">\n");
+      out.write("                    <img id=\"fimg\" src=\"imgsrc/foodimg/");
+      out.print(f.getPic());
+      out.write("\" alt=\"\">\n");
+      out.write("                    <div id=\"fdetail\">\n");
+      out.write("                        <p id=\"fname\">");
+      out.print(f.getName());
+      out.write("</p>\n");
+      out.write("                        <p id=\"forder\">Đã được đặt <span>");
+      out.print(f.getTimes());
+      out.write("</span> lần</p>\n");
+      out.write("                        <span id=\"fprice\"> ");
+      out.print(f.getPrice());
+      out.write("đ</span>\n");
+      out.write("                    </div>\n");
+      out.write("                    <a href=\"CartServlet?command=add&id=");
+      out.print(r.getId());
+      out.write("&fid=");
+      out.print(f.getId());
+      out.write("\"> <button id=\"addfood\" type=\"button\" onclick=\"themHang()\"> +</button> </a>\n");
+      out.write("\n");
+      out.write("                </div>                         ");
+}
+      out.write("\n");
+      out.write("\n");
+      out.write("            </div>\n");
+      out.write("            <div class=\"nav33\">\n");
+      out.write("                ");
+for (Map.Entry<Long, Item> list : cart.getCartItems().entrySet()) {
+      out.write("\n");
+      out.write("                <div id=\"itemadded\">\n");
+      out.write("                    <div><a href=\"CartServlet?command=add&id=");
+      out.print(r.getId());
+      out.write("&fid=");
+      out.print(list.getValue().getFood().getId());
+      out.write("\"><button id=\"add\" type=\"button\" onclick=\"congHang()\">+</button></a>\n");
+      out.write("                        <span id=\"fcount\">");
+      out.print(list.getValue().getQuantity());
+      out.write("</span>\n");
+      out.write("                        <a href=\"CartServlet?command=sub&id=");
+      out.print(r.getId());
+      out.write("&fid=");
+      out.print(list.getValue().getFood().getId());
+      out.write("\"><button id=\"subtract\"type=\"button\" onclick=\"truHang()\">-</button></a>\n");
+      out.write("                        <span id=\"fname2\">");
+      out.print(list.getValue().getFood().getName());
+      out.write("</span> </div>\n");
+      out.write("                    <p id=\"fprice2\">");
+      out.print(list.getValue().getFood().getPrice());
+      out.write("</p>\n");
+      out.write("                </div>\n");
+      out.write("                ");
+ }
+      out.write("\n");
+      out.write("                <div id=\"billrow\">\n");
+      out.write("                    <p id=\"billtext1\"> Tổng: </p>\n");
+      out.write("                    <p id=\"billtext2\">");
+      out.print(cm.total());
+      out.write("</p>\n");
+      out.write("                </div>\n");
+      out.write("                <div id=\"billrow\">\n");
+      out.write("                    <p id=\"billtext1\"> Phí vận chuyển: </p>\n");
+      out.write("                    <p id=\"billtext2\">");
+      out.print(r.getDelivery());
+      out.write("  </p>\n");
+      out.write("                </div>\n");
       out.write("                <button id=\"buy\" type=\"button\" onclick=\"muaHang()\">Mua Hàng</button>\n");
       out.write("            </div>\n");
       out.write("        </div>\n");
-      out.write("\n");
-      out.write("           <div class=\"nav3\">\n");
-      out.write("        <p id=\"thucdon\">THỰC ĐƠN</p>\n");
-      out.write("        <div class=\"nav31\">\n");
-      out.write("            <button id=\"itemtype\"> FRUIT TEA</button> <br>\n");
-      out.write("            <button id=\"itemtype\"> FRUIT TEA</button> <br>\n");
-      out.write("            <button id=\"itemtype\"> FRUIT TEA</button> <br>\n");
-      out.write("            <button id=\"itemtype\"> FRUIT TEA</button>\n");
-      out.write("        </div>\n");
-      out.write("        <div class=\"nav32\">\n");
-      out.write("            <button id=\"itemtype2\"> FRUIT TEA</button>\n");
-      out.write("            <div id=\"food\"> <img id=\"fimg\" src=\"imgsrc/traxanhxoai.jpg\" alt=\"\">\n");
-      out.write("                <div id=\"fdetail\">\n");
-      out.write("                    <p id=\"fname\"> Trà chanh xoài</p>\n");
-      out.write("                    <p id=\"forder\">Đã được đặt <span>797</span> lần</p>\n");
-      out.write("                    <span id=\"fprice\"> 45,000đ</span>\n");
-      out.write("                </div>\n");
-      out.write("                <button id=\"addfood\" type=\"button\" onclick=\"themHang()\"> +</button>\n");
-      out.write("            </div>\n");
-      out.write("            <div id=\"food\"> <img id=\"fimg\" src=\"imgsrc/traxanhxoai.jpg\" alt=\"\">\n");
-      out.write("                <div id=\"fdetail\">\n");
-      out.write("                    <p id=\"fname\"> Trà chanh xoài 2</p>\n");
-      out.write("                    <p id=\"forder\">Đã được đặt <span>888</span> lần</p>\n");
-      out.write("                    <span id=\"fprice\"> 48,000đ</span>\n");
-      out.write("                </div>\n");
-      out.write("                <button id=\"addfood\" type=\"button\" onclick=\"themHang()\"> +</button>\n");
-      out.write("            </div>\n");
-      out.write("        </div>\n");
-      out.write("        <div class=\"nav33\">\n");
-      out.write("            <div id=\"itemadded\">\n");
-      out.write("                <div><button id=\"add\" type=\"button\" onclick=\"congHang()\"> +</button> \n");
-      out.write("                <span id=\"fcount\">1</span>\n");
-      out.write("                <button id=\"subtract\"type=\"button\" onclick=\"truHang()\"> -</button>\n");
-      out.write("                <span id=\"fname2\"></span> </div>\n");
-      out.write("                <p id=\"fprice2\"></p>\n");
-      out.write("            </div>\n");
-      out.write("            <div id=\"billrow\">\n");
-      out.write("                <p id=\"billtext1\"> Tổng: </p>\n");
-      out.write("                <p id=\"billtext2\"> Tổng: </p>\n");
-      out.write("            </div>\n");
-      out.write("            <div id=\"billrow\">\n");
-      out.write("                <p id=\"billtext1\"> Phí vận chuyển: </p>\n");
-      out.write("                <p id=\"billtext2\"> Tổng: </p>\n");
-      out.write("            </div>\n");
-      out.write("            <button id=\"buy\" type=\"button\" onclick=\"muaHang()\">Mua Hàng</button>\n");
-      out.write("        </div>\n");
-      out.write("    </div>\n");
       out.write("\n");
       out.write("        <div class=\"footer\">\n");
       out.write("            <div class=\"insidefooter\" id=\"f1\">\n");
@@ -357,18 +410,21 @@ public final class item_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            };\n");
       out.write("            ");
 
-                        String inv;
-                        String log;
-                        if ((inv = request.getParameter("invalid")) != null) {
+                String inv;
+                if ((inv = request.getParameter("invalid")) != null) {
       out.write("\n");
       out.write("            showInvalid(\"block\");\n");
       out.write("            document.getElementById(\"loginform\").style.display = \"block\";\n");
       out.write("            ");
-} else if ((log = request.getParameter("log")) != null) {
+}
+                if (session != null) {
+                    if (session.getAttribute("user") != null) {
       out.write("\n");
       out.write("            document.getElementById(\"login\").style.display = \"none\";\n");
+      out.write("            document.getElementById(\"logged\").style.display = \"block\";\n");
       out.write("            ");
 }
+                }
       out.write("\n");
       out.write("        </script>\n");
       out.write("    </body>\n");

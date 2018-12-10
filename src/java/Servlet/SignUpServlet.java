@@ -40,7 +40,7 @@ public class SignUpServlet extends HttpServlet {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.executeUpdate();
             PrintWriter out = response.getWriter();
-            out.println("Signed up successfully!" + address + "");
+            response.sendRedirect("index.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         }

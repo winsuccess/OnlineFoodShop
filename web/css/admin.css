@@ -1,0 +1,164 @@
+body {
+    background-color: rgb(243, 237, 241);
+    font-family: "Roboto";
+    margin: 0;
+    padding: 0;
+}
+#nav1{
+    width: 100%;
+    height: 60px;
+    background-color: #ffd64d;
+}
+
+#nav1 h1{
+    font-size:30px;
+    margin:0;
+    padding:10px;
+    padding-right: 20px;
+    float: right;
+    color: #00c853;
+}
+
+#logo {
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+    line-height: 70px;
+}
+
+#nav2{
+    margin-top: 50px;
+    width: auto;
+    height: auto;
+}
+#sidenav {
+    margin-top: 50px;
+    width:15%;
+    height:100%;
+    float:left;
+    margin-left: 25px;
+}
+
+.transbutton {
+    width: 90%;
+    height: 42px;
+    margin-bottom: 20px;
+    background-color: #fdfffc;
+    font-size: 16px;
+    color: rgb(95, 89, 89);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+    text-align: left;
+    padding-left: 15%;
+}
+
+#body-content {
+    height:100%;
+    margin:0;
+    padding:0;
+    margin-left: 5%;
+    float:left;
+    width:70%;
+}
+
+#header{
+    vertical-align: middle;
+    height: 70px;
+    line-height: 70px;
+    background-color: #888;
+    border-radius: 5px;
+}
+
+#header-name-text {
+    margin:0;
+    padding:0;
+    font-size: 30px;
+    font-weight: bold;
+    float: left;
+    margin-left: 5%;
+    color: rgb(165, 241, 50);
+}
+
+#header-name-btn {
+    width: 10%;
+    float: right;
+    margin-right: 5%;
+}
+
+#addnew{
+    font-weight: bold;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
+#table-header {
+    background: #d3d3d3;
+    margin-top: 50px;
+    clear: both;
+    color: black;
+    height: 40px;
+    text-align: center;
+    font-size: 25px;
+}
+
+
+#myTable {
+    border-collapse: collapse;
+    width: 98%;
+    text-align: center;
+    margin: 0px 1%;
+}
+#myTable tr td {
+    border: 1px solid #cccccc;
+    max-width: 120px;
+}
+
+#myTable tr th {
+    border: 1px solid #cccccc;
+    background: #f0f0f0;
+}
+
+#myTable tr td a img {
+    width: 15%;
+}
+
+#myTable tr td .product-image {
+    float: left;
+}
+
+#myTable tr td .product-text{
+    float:left;
+    width: 80%;
+}  
+#myTable tr td .product-text p {
+    margin:0;
+    padding-left:10px;
+    padding-bottom:5px;
+    text-align:left;
+}
+ .table-divider {
+    text-align: right;
+    padding: 40px 1% 0px 0px;
+}
+
+.table-divider span {
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+ .table-divider span:hover {
+    background: #cccccc;
+}
+

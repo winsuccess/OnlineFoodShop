@@ -33,10 +33,11 @@ public class LogInServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
         String url = request.getHeader("referer");
-        if(url.contains("?"))
-            url = url +"&";
-        else
-            url = url +"?";
+        if (url.contains("?")) {
+            url = url + "&";
+        } else {
+            url = url + "?";
+        }
         try {
 
             Account acc = new Account();
@@ -47,9 +48,14 @@ public class LogInServlet extends HttpServlet {
             if (acc.isValid()) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", acc);
-                response.sendRedirect(url+"log=1");
+                if (acc.getUsername().equals("admin")) {
+                    response.sendRedirect("admin.jsp");
+                    return;
+                }
+                response.sendRedirect(url + "log=1");
+
             } else {
-               response.sendRedirect(url+"invalid=1");
+                response.sendRedirect(url + "invalid=1");
             }
 
         } catch (SQLException e) {
