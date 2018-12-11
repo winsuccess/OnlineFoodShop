@@ -19,6 +19,26 @@ body {
     color: #00c853;
 }
 
+.log {
+    background-color: #00c853;
+    height: 40px;
+    width: 100px;
+    border: none;
+    color: azure;
+    font-size: 17px;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+#logged
+{
+    float: right;
+    margin-right: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+}
 #logo {
     max-width: 100%;
     max-height: 100%;
@@ -28,17 +48,100 @@ body {
 
 #nav2{
     margin-top: 50px;
-    width: auto;
+    width: 100%;
     height: auto;
 }
-#sidenav {
+
+.left-content {
     margin-top: 50px;
-    width:15%;
-    height:100%;
-    float:left;
+    width:17%;
+    height: 500px;
     margin-left: 25px;
+    background: #222d32;
+    float: left;
+
 }
 
+.left-content .logo {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.left-content .logo img {
+    width: 100%;
+}
+
+.left-content .logo span {
+    color: white;
+}
+
+.left-content .admin-home {
+    background: #1a2226;
+    padding: 10px 15px;
+}
+
+.left-content .admin-home img {
+    width: 7%;
+    margin-right: 10px;
+}
+
+.left-content .admin-home a {
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+}
+
+.left-content .sidebar-rows {
+    padding: 10px 15px;
+    border-bottom: 1px solid #2c3b41;
+    cursor: pointer;
+    position: relative;
+}
+
+.left-content .active {
+    padding: 10px 15px;
+    border-bottom: 1px solid #2c3b41;
+    cursor: pointer;
+    position: relative;
+    border-left: 2px solid blue;
+}
+
+.left-content .sidebar-rows:hover {
+    border-left: 2px solid blue;
+}
+
+.left-content .sidebar-rows img {
+    width: 7%;
+    margin-right: 10px;
+}
+
+.left-content .sidebar-rows span {
+    color: white;
+    font-size: 13px;
+}
+
+.left-content .sidebar-contents {
+    background: #2c3b41;
+    display: none;
+}
+
+.left-content .sidebar-contents .sidebar-contents-row {
+    padding: 10px 15px;
+}
+
+.left-content .sidebar-contents .sidebar-contents-row img {
+    width: 5%;
+    margin-right: 15px;
+}
+
+.left-content .sidebar-contents .sidebar-contents-row a {
+    color: #68766d;
+    text-decoration: none;
+}
+
+.left-content .sidebar-contents .sidebar-contents-row a:hover {
+    color: white;
+}
 .transbutton {
     width: 90%;
     height: 42px;
@@ -56,7 +159,7 @@ body {
     padding-left: 15%;
 }
 
-#body-content {
+.body-content {
     height:100%;
     margin:0;
     padding:0;
@@ -98,7 +201,7 @@ body {
     overflow: hidden;
     outline: none;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
-    
+
 }
 
 #table-header {
@@ -146,7 +249,7 @@ body {
     padding-bottom:5px;
     text-align:left;
 }
- .table-divider {
+.table-divider {
     text-align: right;
     padding: 40px 1% 0px 0px;
 }
@@ -158,7 +261,353 @@ body {
     cursor: pointer;
 }
 
- .table-divider span:hover {
+.table-divider span:hover {
     background: #cccccc;
 }
 
+
+/*form*/
+
+    .body-content .content-form {
+        margin: 100px 25%;
+    }
+
+
+        .body-content .content-form form .content-form-rows {
+            margin-bottom: 5px;
+            height: 25px;
+        }
+
+            .body-content .content-form form .content-form-rows span {
+                width: 30%;
+                float: left;
+            }
+
+            .body-content .content-form form .content-form-rows input {
+                width: 50%;
+                float: left;
+            }
+
+            .body-content .content-form form .content-form-rows select {
+                height: 25px;
+                width: 30%;
+            }
+
+        .body-content .content-form form .content-form-btn {
+            margin-top: 25px;
+            height: 25px;
+        }
+
+            .body-content .content-form form .content-form-btn input {
+                float: right;
+                height: 30px;
+                margin-right: 10px;
+            }
+
+            .body-content .content-form form .content-form-btn a {
+                float: right;
+                color: white;
+                background: #fd5777;
+                padding: 7px 20px;
+                font-weight: bold;
+                border: none;
+                cursor: pointer;
+                font-size: 13px;
+                text-decoration: none;
+            }
+
+                .body-content .content-form form .content-form-btn a:hover {
+                    background: #ce4962;
+                }
+
+
+
+    /*table*/
+
+    .body-content .table-header {
+        background: #d3d3d3;
+        margin: 5px 1%;
+        padding: 10px 15px;
+        clear: both;
+    }
+
+#myTable {
+    border-collapse: collapse;
+    width: 98%;
+    text-align: center;
+    margin: 0px 1%;
+}
+
+    #myTable tr td {
+        border: 1px solid #cccccc;
+        max-width: 130px;
+    }
+
+    #myTable tr th {
+        border: 1px solid #cccccc;
+        background: #f0f0f0;
+    }
+
+    #myTable tr td a {
+        text-decoration: none;
+    }
+
+        #myTable tr td a img {
+            width: 10%;
+        }
+
+    #myTable tr td .product-image {
+        float: left;
+    }
+
+        #myTable tr td .product-image img {
+            height:90px;
+            width:62px;
+        }
+
+    #myTable tr td .product-text{
+        float:left;
+        width:80%;
+    }  
+        #myTable tr td .product-text p {
+            margin:0;
+            padding-left:10px;
+            padding-bottom:5px;
+            text-align:left;
+        }
+
+.body-content .table-divider {
+    text-align: right;
+    padding: 40px 1% 0px 0px;
+}
+
+    .body-content .table-divider span {
+        border: 1px solid #cccccc;
+        padding: 5px 10px;
+        background: #ffffff;
+        cursor: pointer;
+    }
+
+        .body-content .table-divider span:hover {
+            background: #cccccc;
+        }
+
+
+#myTable .fail-process {
+    background: #fbdee2;
+}
+
+    #myTable .fail-process span {
+        background: #f84a5e;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+#myTable .working-process {
+    background: #f7f2b8;
+}
+
+    #myTable .working-process span {
+        background: #f5e85b;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+#myTable .success-process {
+    background: #bbfac9;
+}
+
+    #myTable .success-process span {
+        background: #5bf57c;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+/* alert-message*/
+.body-content .admin-message {
+    min-height: 36px;
+    margin: 5px 0;
+}
+
+    .body-content .admin-message .admin-message-info {
+        margin: 0px 1%;
+        background: #a7e3f0;
+        padding: 5px;
+        padding-bottom: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .body-content .admin-message .admin-message-info img {
+            width: 25px;
+            height: 25px;
+            position: relative;
+        }
+
+        .body-content .admin-message .admin-message-info span {
+            position: absolute;
+            left: 325px;
+            top: 180px;
+        }
+
+/*statistic-table*/
+.StatisticTable {
+    width: 48%;
+    margin: 20px 1%;
+    float: left;
+}
+
+    .StatisticTable .StatisticTable-title {
+        border: 1px solid #cccccc;
+        border-bottom: none;
+        padding: 10px 5px;
+        background: #f0f0f0;
+    }
+
+        .StatisticTable .StatisticTable-title img {
+            margin-left: 2%;
+            margin-right: 2%;
+        }
+
+        .StatisticTable .StatisticTable-title span {
+            padding: 11px;
+            font-weight: bold;
+            border-left: 1px solid #cccccc;
+        }
+
+    .StatisticTable #myTable {
+        margin: 0;
+        width: 100%;
+    }
+
+        .StatisticTable #myTable tr .left-col {
+            width: 70%;
+            text-align: left;
+            padding-left: 3%;
+            font-weight: bold;
+            color: #6f94ad;
+        }
+
+            .StatisticTable #myTable tr .left-col a {
+                float: right;
+                color: black;
+                font-weight: normal;
+                text-decoration: underline;
+            }
+
+                .StatisticTable #myTable tr .left-col a:hover {
+                    color: #3d63f1;
+                }
+
+/*details-transaction*/
+#old-price {
+    color: black;
+    text-decoration: line-through;
+    font-weight: normal;
+    margin: 0;
+}
+
+#new-price {
+    color: red;
+    font-weight: normal;
+    margin: 0;
+}
+.details-trans .trans-label {
+    text-align: center;
+    color: #6066b6;
+    padding: 11px 15px;
+    height: 18px;
+    border-bottom: 1px solid #cccccc;
+}
+
+    .details-trans .trans-label .trans-label-col {
+        width: 20%;
+        float: left;
+    }
+
+.details-trans .trans-box {
+    min-height: 200px;
+}
+
+    .details-trans .trans-box .trans-row {
+        text-align: center;
+        padding: 20px 15px;
+        height: 150px;
+        border-bottom: 1px solid #cccccc;
+        border-top: 1px solid #cccccc;
+        background: #ffffff;
+        margin-bottom:10px;
+    }
+
+        .details-trans .trans-box .trans-row .trans-row-col {
+            width: 20%;
+            float: left;
+            font-size: 19px;
+        }
+
+            .details-trans .trans-box .trans-row .trans-row-col img {
+                width: 50%;
+                height: 150px;
+            }
+
+            .details-trans .trans-box .trans-row .trans-row-col p {
+                font-weight: bold;
+                margin-top: 60px;
+            }
+
+            .details-trans .trans-box .trans-row .trans-row-col #old-price {
+                margin-top: 50px;
+            }
+
+        .details-trans .trans-box .trans-row .trans-row-number {
+            width: 20%;
+            float: left;
+            font-size: 19px;
+            margin-top: 55px;
+        }
+
+
+        .details-trans .trans-box .trans-row .trans-row-price {
+            font-size: 19px;
+            color: red;
+            width: 20%;
+            float: left;
+            margin-top: 60px;
+        }
+
+.details-trans .trans-detail-btn {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 15px;
+}
+
+    .details-trans .trans-detail-btn a {
+        text-decoration: none;
+        color: black;
+        background: #7e79e9;
+        padding: 9px 20px;
+    }
+
+        .details-trans .trans-detail-btn a:hover {
+            background: #4a43c1;
+        }
+
+.details-trans .trans-info-text {
+    padding-left: 6%;
+}
+
+
+#myButton {
+    text-decoration: none;
+    color: #272727;
+    background: #68a7f0;
+    padding: 7px 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+    #myButton:hover {
+        background: #337fd7;
+    }

@@ -60,6 +60,22 @@ public class RestaurantDAO {
         }
         return res;
     }
+       
+    public void deleteRestaurant(int id) throws SQLException{
+        Connection con = DBConnection.getConnection();
+        String sql = "delete from Restaurant WHERE id='"+id+"'";
+        PreparedStatement ps = con.prepareCall(sql);
+        ps.executeUpdate();
+    }
+    public int addRestaurant(String filename, int res_id, String res_name, String res_address, String res_type,float res_rate,int res_prepare,String res_price,String res_deliver) throws SQLException{
+        Connection con = DBConnection.getConnection();
+        String sql = "insert into Restaurant(id,name,address,rating,price,type,delivery,prepareTime,pic)";
+        sql += "values ("+ res_id + ",N'"+ res_name + "',N'"+ res_address + "',"+ res_rate + ",N'"+ res_price + "',N'"+ res_type + "',N'"+ res_deliver + "',"+ res_prepare + ",N'" + filename + "')";
+        System.out.println(sql);
+        PreparedStatement ps = con.prepareCall(sql);
+        int a = ps.executeUpdate();
+        return a;
+    }
     
     public static void main(String[] args) throws SQLException{
             RestaurantDAO dao = new RestaurantDAO();

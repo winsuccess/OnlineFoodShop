@@ -35,8 +35,9 @@
             RestaurantManager resm = new RestaurantManager();
             AccountDAO accDAO = new AccountDAO();
             Account acc = new Account();
-             if (session.getAttribute("user") != null)
-            acc =(Account) session.getAttribute("user");
+            if (session.getAttribute("user") != null) {
+                acc = (Account) session.getAttribute("user");
+            }
             if (request.getParameter("uname") != null) {
                 String name = "";
                 name = request.getParameter("uname");
@@ -341,13 +342,13 @@
                 }
             };
             <%
-                String inv;
-                if ((inv = request.getParameter("invalid")) != null) {%>
+                if (session.getAttribute("login") != null) {%>
             showInvalid("block");
             document.getElementById("loginform").style.display = "block";
             <%}
                 if (session != null) {
                     if (session.getAttribute("user") != null) {%>
+            document.getElementById("loginform").style.display = "none";
             document.getElementById("login").style.display = "none";
             document.getElementById("logged").style.display = "block";
             <%}

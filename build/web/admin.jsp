@@ -17,7 +17,7 @@
         <title>Category  |  Admin</title>
         <meta charset= "UTF-8" >
         <link rel="stylesheet" type="text/css" href="css/admin.css" >
-        <script src="admin.js"></script>
+        <script src="js/admin.js"></script>
     </head>
 
     <body>
@@ -33,20 +33,68 @@
             }
         %>
         <div id="nav1">
-            <a href="index.jsp"><img id="logo" src="imgsrc/logo.png" alt="STARV"> </a>
-            <h1>Trang Admin</h1>
+            <a href="admin.jsp"><img id="logo" src="imgsrc/logo.png" alt="STARV"> </a>
+            <div id="logged">
+                <a href="LogOutServlet"><button class="log">Đăng xuất</button></a>
+            </div>
         </div>
 
         <div id="nav2">
-            <div id="sidenav">
-                <a href=""><button class="transbutton"> Quản lý tài khoản </button> </a>
-                <a href=""><button class="transbutton"> Quản lý nhà hàng </button> </a>
+            <div class="left-content">
+                <div class="logo">
+                    <img alt="error" src="imgsrc/admin-image.png">
+                    <span>Xin chào, Admin!</span>
+                </div>
+                <div class="admin-home">
+                    <img alt="error" src="imgsrc/icon/icon-homee.png">
+                    <a href="#">BẢNG ĐIỀU KHIỂN</a>
+                </div>
+                <div class="sidebar-rows" onclick="sidebarDrop(this)">
+                    <img alt="error" src="imgsrc/icon/icon-trade.png">
+                    <span>QUẢN LÝ NHÀ HÀNG</span>
+                </div>
+                <div class="sidebar-contents">
+                    <div class="sidebar-contents-row">
+                        <img alt="error" src="imgsrc/icon/icon-next-sidebar.png">
+                        <a href="#">Giao dịch</a>
+                    </div>
+                </div>
+                <div class="sidebar-rows" onclick="sidebarDrop(this)">
+                    <img alt="error" src="imgsrc/icon/icon-product.png">
+                    <span>NHÀ HÀNG</span>
+                </div>
+                <div class="sidebar-contents">
+                    <div class="sidebar-contents-row">
+                        <img alt="error" src="imgsrc/icon/icon-next-sidebar.png">
+                        <a href="#">Danh mục</a>
+                    </div>
+                    <div class="sidebar-contents-row">
+                        <img alt="error" src="imgsrc/icon/icon-next-sidebar.png">
+                        <a href="#">Quản lý nhà hàng</a>
+                    </div>
+                </div>
+                <div class="sidebar-rows" onclick="sidebarDrop(this)">
+                    <img alt="error" src="imgsrc/icon/icon-account-white.png">
+                    <span>TÀI KHOẢN</span>
+                </div>
+                <div class="sidebar-contents">
+                    <div class="sidebar-contents-row">
+                        <img alt="error" src="imgsrc/icon/icon-next-sidebar.png">
+                        <a href="#">Quản trị viên</a>
+                    </div>
+                    <div class="sidebar-contents-row">
+                        <img alt="error" src="imgsrc/icon/icon-next-sidebar.png">
+                        <a href="#">Khách hàng</a>
+                    </div>
+                </div>
             </div>
-            <div id="body-content">
+            <div class="body-content">
                 <div id="header">
                     <p id="header-name-text">Quản lý nhà hàng</p>
                     <div id="header-name-btn">                 
-                        <button id="addnew"><img src="imgsrc/add-icon.png" style="width:16px;height:16px;" alt="error"> Thêm mới</button>
+                        <a href="res_add.jsp" target="_blank">
+                            <button id="addnew"><img src="imgsrc/add-icon.png" style="width:16px;height:16px;" alt="error"> Thêm mới</button>
+                        </a>
                     </div>
                 </div>
                 <div id="table-header">

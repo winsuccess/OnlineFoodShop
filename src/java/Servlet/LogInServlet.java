@@ -33,29 +33,24 @@ public class LogInServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
         String url = request.getHeader("referer");
-        if (url.contains("?")) {
-            url = url + "&";
-        } else {
-            url = url + "?";
-        }
         try {
 
             Account acc = new Account();
             acc.setUsername(request.getParameter("uname"));
             acc.setPassword(request.getParameter("psw"));
             acc = AccountDAO.LogIn(acc);
-
+            HttpSession session = request.getSession(true);
             if (acc.isValid()) {
-                HttpSession session = request.getSession(true);
+
                 session.setAttribute("user", acc);
                 if (acc.getUsername().equals("admin")) {
                     response.sendRedirect("admin.jsp");
                     return;
                 }
-                response.sendRedirect(url + "log=1");
-
+                response.sendRedirect(url);
             } else {
-                response.sendRedirect(url + "invalid=1");
+                session.setAttribute("login", "false");           
+                response.sendRedirect(url);
             }
 
         } catch (SQLException e) {
