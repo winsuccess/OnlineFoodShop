@@ -130,7 +130,7 @@
                             <a href="#" title="Chỉnh sửa">
                                 <img src="imgsrc/edit.png" alt="error">
                             </a>
-                            <a href="##" title="Xóa" onclick="delete_confirm(event)">
+                            <a href="deleteRestaurant?id=<%= r.getId() %>" title="Xóa" onclick="delete_confirm(event)">
                                 <img src="imgsrc/icon-delete.png" alt="error">
                             </a>
                         </td>

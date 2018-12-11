@@ -8,6 +8,7 @@ package Servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -54,7 +55,7 @@ public class addRestaurant extends HttpServlet {
     private String res_prepare;
     private String res_price;
     private String res_deliver;
-    private String UPLOAD_DIRECTORY = "/imgsrc/res";
+    private String UPLOAD_DIRECTORY = "imgsrc/resimg";
 
     private void initParameter() {
         filename = "";
@@ -72,9 +73,10 @@ public class addRestaurant extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         getParameter(request);
+        out.println(res_rate);
         RestaurantDAO dao = new RestaurantDAO();
         try {
-            int check = dao.addRestaurant(filename, Integer.parseInt(res_id), res_name, res_address, res_type, Float.parseFloat(res_rate), Integer.parseInt(res_prepare), res_price, res_deliver);
+           dao.addRestaurant(filename, Integer.parseInt(res_id), res_name, res_address, res_type, Float.parseFloat(res_rate), Integer.parseInt(res_prepare), res_price, res_deliver);
         } catch (SQLException ex) {
             Logger.getLogger(addRestaurant.class.getName()).log(Level.SEVERE, null, ex);
         }
